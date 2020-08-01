@@ -1,0 +1,84 @@
+#update all customer active status to zero whose first_name is starting with L
+(deactivate all customers whose first_name starts with L) "testing UPDATE query"
+
+SELECT first_name,active,
+CASE
+    WHEN first_name like 'L%' THEN 0
+    ELSE active
+END AS active_testing
+
+
+
+
+2.testing UPDATE query
+
+
+SELECT first_name,active,
+CASE
+    WHEN first_name like 'L%' THEN 0 # this condition is for updation
+    ELSE active
+END AS active_testing
+FROM customer where first_name like 'L%' # this condition is for displaying and filtering only L
+
+
+
+
+3. displaying  all along with END AS (testing UPDATE query)
+
+SELECT first_name,active,
+CASE
+    WHEN first_name like 'L%' THEN 0 # this condition is for updation
+    ELSE active
+END AS active_testing,activebool,store_id,email
+FROM customer where first_name like 'L%' # this condition is for displaying and filtering only L
+
+
+a)simple method(testing UPDATE query)
+
+SELECT *,
+CASE
+    WHEN first_name like 'L%' THEN 0 # this condition is for updation
+    ELSE active
+END AS active_testing
+FROM customer where first_name like 'L%' # this condition is for displaying and filtering only L
+
+
+b)REAL UPDATE query
+
+update customer set active = 0 where first_name like 'L%'
+
+c)DELETEs the specific customer record
+
+#delete from customer where first_name like 'L%'
+
+d)DROP or TRUNCATE table
+DROP table customer
+
+CRUD operations : CREATE,READ,UPDATE,DELETE
+ACID : AUTOMOCITY, CONSISTENCY, ISOLATION, DURABILITY
+
+Atomicity : (ex : powercut or server crash) all or none
+
+The atomicity acid property in SQL. It means either all the operations 
+(insert, update, delete) inside a transaction take place or none. Or you can say, all the statements
+ (insert, update, delete) inside a transaction are either completed or rolled back.
+
+Consistency: (ex : powercut or server crash) surity at legal state
+
+This SQL ACID property ensures database consistency. It means, whatever happens in the middle of the transaction,
+ this property will never leave your database in a half-completed state. 
+If the transaction completed successfully, then it will apply all the changes to the database.
+If there is an error in a transaction, then all the changes that already made will be rolled back automatically. 
+It means the database will restore to its state that it had before the transaction started.
+If there is a system failure in the middle of the transaction, then also, all the changes made already will automatically rollback.
+
+
+Isolation: (EX : EXECUTING FIVE DIFFERENT SQL STATEMENTS AT AT A TIME)
+
+Every transaction is individual, and One transaction can’t access the result of other transactions
+ until the transaction completed. Or, you can’t perform the same operation using multiple transactions at the same time. 
+
+Durability: (EX : changes are permanent with out a doubt)
+
+Once the transaction completed, then the changes it has made to the database will be permanent.
+ Even if there is a system failure, or any abnormal changes also, this SQL acid property will safeguard the committed data.
